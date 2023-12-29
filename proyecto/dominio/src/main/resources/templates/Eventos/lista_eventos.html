@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div th:fragment="formato_lista">
+        
+        <div class="barra_acciones_lista_eventos">
+            <div class="flex-grow-1">
+                <div class="dropdown">
+                    <button class="estilo_boton_hueco dropdown-toggle" type="button" id="desplegable_departamento" data-bs-toggle="dropdown" aria-expanded="false">
+                        Departamento
+                    </button>
+                    <ul id="opciones_departamentos" class="dropdown-menu" aria-labelledby="desplegable_departamento">
+                        <li th:each="departamento, iterStat : ${departamentos}">
+                            <input type="checkbox" th:id="'departamento_id_' + ${iterStat.index}" th:value="${departamento.nombre}" />
+                            <label th:for="'departamento_id_' + ${iterStat.index}" th:text="${departamento.nombre}"></label>
+                        </li>
+                        <!--
+                        <li>
+                            <input type="checkbox" id="id_depa_2" value="segundo_valor" />
+                            <label for="id_depa_2">Depa_2</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="id_depa_3" value="tercer_valor" />
+                            <label for="id_depa_3">Depa_3</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="id_depa_4" value="cuarto_valor" />
+                            <label for="id_depa_4">Depa_4 Testeo tiene nombre largo</label>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+            <div class="flex-grow-1">
+                <div class="dropdown">
+                    <button class="estilo_boton_hueco dropdown-toggle" type="button" id="desplegable_modalidad" data-bs-toggle="dropdown" aria-expanded="false">
+                        Modalidad
+                    </button>
+                    <ul id="opciones_modalidad" class="dropdown-menu" aria-labelledby="desplegable_modalidad">
+                        <li th:each="modalidad, iterStat : ${modalidades}">
+                            <input type="checkbox" th:id="'modalidad_id_' + ${iterStat.index}" th:value="${modalidad}" />
+                            <label th:for="'modalidad_id_' + ${iterStat.index}" th:text="${modalidad}"></label>
+                        </li>
+                        <!--
+                        <li>
+                            <input type="checkbox" id="id_modo_virtual" value="segundo_valor" />
+                            <label for="id_modo_virtual">Virtual</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="id_modo_hibrido" value="tercer_valor" />
+                            <label for="id_modo_hibrido">Hibrida</label>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+            <div class="flex-grow-1">
+                <div class="dropdown">
+                    <button class="estilo_boton_hueco dropdown-toggle" type="button" id="desplegable_estado" data-bs-toggle="dropdown" aria-expanded="false">
+                        Estado
+                    </button>
+                    <ul id="opciones_estado" class="dropdown-menu" aria-labelledby="desplegable_estado">
+                        <li th:each="estado, iterStat : ${estados}">
+                            <input type="checkbox" th:id="'estado_id_' + ${iterStat.index}" th:value="${estado}" />
+                            <label th:for="'estado_id_' + ${iterStat.index}" th:text="${estado}"></label>
+                        </li>
+                        <!--
+                        <li>
+                            <input type="checkbox" id="id_estado_finalizado" value="segundo_valor" />
+                            <label for="id_estado_finalizado">Finalizado</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="id_estado_cancelado" value="tercer_valor" />
+                            <label for="id_estado_cancelado">Cancelado</label>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+            <div class="contenedor_filtro_buscador">
+                <input type="text" class="form-control shadow-none" id="filtro_buscador" placeholder="Nombre...">
+            </div>
+            <div>
+                <a href="/nuevoEvento" class="estilo_boton_generico">Nuevo Evento</a>
+            </div>
+        </div>
+        
+        <table class="table text-centered tabla_lista_eventos">
+            <thead>
+                <tr> <!-- al estar el thead con display:none las clases de las columnas no se aplican -->
+                    <th class="col-3">IMG</th>
+                    <th class="col-2">Nombre</th>
+                    <th class="col-3">Ubicación</th>
+                    <th class="col-2">Departamento</th>
+                    <th class="col-1">Estado</th>
+                    <th class="col-1">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="contenido_tabla_eventos">
+                <tr th:if="${eventos.empty}">
+                    <td colspan="6"> No data available </td>
+                </tr>
+                <tr class="fila_tabla_lista_eventos" th:each="evento : ${eventos}">
+                    <td class="tabla_col_1"><img th:src="@{${evento.imagen}}" class="imagen_evento" alt="imagen">  </span></td>
+                    <td class="tabla_col_2"><span th:text="${evento.nombre}"> Acá va el Nombre del Evento </span></td>
+                    <td class="tabla_col_3">
+                        <span th:if="${evento.presencial}">
+                            <div th:text="'Ubicacion: ' + ${evento.ubicacion.provincia} + ' ' + ${evento.ubicacion.calle} + ' ' + ${evento.ubicacion.altura} + ' Piso: ' + ${evento.ubicacion.piso}"></div>
+                        </span>
+                        <span th:if="${evento.virtual}">
+                            <div th:text="'Link de reunion: ' + ${evento.linkReunion}"></div>
+                        </span>
+                        <span th:if="${evento.hibrido}">
+                            <div th:text="'Link de reunion: ' + ${evento.linkReunion}" class="presidente"></div>
+                            <br>
+                            <div th:text="'Ubicacion: ' + ${evento.ubicacion.provincia} + ' ' + ${evento.ubicacion.calle} + ' ' + ${evento.ubicacion.altura} + ' Piso: ' + ${evento.ubicacion.piso}" class="presidente"></div>
+                        </span>
+                    </td>
+                    <td class="tabla_col_4"><span th:text="'Departamento: '+${evento.departamentoOrganizador.nombre}"></span></td>
+                    <td class="tabla_col_5">
+                        <div class="d-flex flex-column">
+                            <span th:if="${evento.activo}">
+                                <div class="tag_estado_evento tag_activo">Activo</div>
+                            </span>
+                            <span th:if="${evento.finalizado}">
+                                <div class="tag_estado_evento tag_finalizado">Finalizado</div>
+                            </span>
+                            <span th:if="${evento.cancelado}">
+                                <div class="tag_estado_evento tag_cancelado">Cancelado</div>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="tabla_col_6">
+                        <div class="acciones_fila_tabla">
+                            <a th:href="@{'/inscripcion/' + ${evento.id}}"><span class="lnr lnr-link icono_en_circulo_mediano"></span></a>
+                            <a th:href="@{'/evento/' + ${evento.id}}"><span class="lnr lnr-eye icono_en_circulo_mediano"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <!--
+                <tr class="fila_tabla_lista_eventos" :each="socio : ${socios}">
+                    <td class="tabla_col_1"><img :src="@{${socio.logo}}" src="../../static/img/icon_usuario.png" class="imagen_evento" alt="imagen">  </span></td>
+                    <td class="tabla_col_2"><span :text="${socio.denominacion}"> Aca va el Nombre del evento </span></td>
+                    <td class="tabla_col_3"><span :text="${socio.tipo}"> Muestra la ubicacion, si es virtual tambien deberia tener la leyenda 'virtual' </span></td>
+                    <td class="tabla_col_4"><span :text="${socio.denominacion}"> departamento que lo creo </span></td>
+                    <td class="tabla_col_5">
+                        <div class="d-flex flex-fill flex-column">
+                            <span :if="${evento.cancelado}">
+                                <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="60" cy="60" r="50" fill="red"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="tabla_col_6">
+                        <div class="d-flex flex-fill flex-column">
+                            <a :href="@{'/Eventos/' + ${departamento.id} + '/editar'}" class="estilo_link_generico"><span class="lnr lnr-link tamanio_acciones"></span></a>
+                            <a :href="@{'/Eventos/' + ${departamento.id}}" class="estilo_link_generico"><span class="lnr lnr-eye tamanio_acciones"></span></a>
+                            <a :href="@{'/Eventos/' + ${evento.id}}" class="estilo_link_generico"><span class="lnr lnr-pencil tamanio_acciones"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="fila_tabla_lista_eventos" :each="socio : ${socios}">
+                    <td class="tabla_col_1"><img :src="@{${socio.logo}}" src="../../static/img/icon_usuario.png" class="imagen_evento" alt="imagen">  </span></td>
+                    <td class="tabla_col_2"><span :text="${socio.denominacion}"> Aca va el Nombre del evento </span></td>
+                    <td class="tabla_col_3"><span :text="${socio.tipo}"> Muestra la ubicacion, si es virtual tambien deberia tener la leyenda 'virtual' </span></td>
+                    <td class="tabla_col_4"><span :text="${socio.denominacion}"> departamento que lo creo </span></td>
+                    <td class="tabla_col_5">
+                        <div class="d-flex flex-fill flex-column">
+                            <span :if="${socio.finalizado}">
+                                <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="60" cy="60" r="50" fill="#67B4C0"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="tabla_col_6">
+                        <div class="d-flex flex-fill flex-column">
+                            <a :href="@{'/Eventos/' + ${departamento.id} + '/editar'}" class="estilo_link_generico"><span class="lnr lnr-link tamanio_acciones"></span></a>
+                            <a :href="@{'/Eventos/' + ${departamento.id}}" class="estilo_link_generico"><span class="lnr lnr-eye tamanio_acciones"></span></a>
+                            <a :href="@{'/Eventos/' + ${evento.id}}" class="estilo_link_generico"><span class="lnr lnr-pencil tamanio_acciones"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="fila_tabla_lista_eventos" :each="socio : ${socios}">
+                    <td class="tabla_col_1"><img :src="@{${socio.logo}}" src="../../static/img/icon_usuario.png" class="imagen_evento" alt="imagen">  </span></td>
+                    <td class="tabla_col_2"><span :text="${socio.denominacion}"> Aca va el Nombre del evento </span></td>
+                    <td class="tabla_col_3"><span :text="${socio.tipo}"> Muestra la ubicacion, si es virtual tambien deberia tener la leyenda 'virtual' </span></td>
+                    <td class="tabla_col_4"><span :text="${socio.denominacion}"> departamento que lo creo </span></td>
+                    <td class="tabla_col_5">
+                        <div class="d-flex flex-fill flex-column">
+                            <span :if="${socio.suspendido}">
+                                <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="60" cy="60" r="50" fill="yellow"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="tabla_col_6">
+                        <div class="d-flex flex-fill flex-column">
+                            <a :href="@{'/Eventos/' + ${departamento.id} + '/editar'}" class="estilo_link_generico"><span class="lnr lnr-link tamanio_acciones"></span></a>
+                            <a :href="@{'/Eventos/' + ${departamento.id}}" class="estilo_link_generico"><span class="lnr lnr-eye tamanio_acciones"></span></a>
+                            <a :href="@{'/Eventos/' + ${evento.id}}" class="estilo_link_generico"><span class="lnr lnr-pencil tamanio_acciones"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                -->
+            </tbody>
+        </table>
+                    <script>
+                        $(document).ready(function(){ // ejecuta cuando se carga toda la pagina
+
+                            var list_rows = $("#contenido_tabla_eventos tr");
+                            var valor = false;
+                            
+                            $("#filtro_buscador").on("keyup", aplicar_filtro);
+
+                            $("#opciones_departamentos li input[type='checkbox']").on('change', aplicar_filtro);
+
+                            $("#opciones_modalidad li input[type='checkbox']").on('change', function(){
+                                $("#opciones_modalidad li input[type='checkbox']").not(this).prop('checked', false);
+                                aplicar_filtro();
+                            });
+
+                            $("#opciones_estado li input[type='checkbox']").on('change', aplicar_filtro);
+
+                            function aplicar_filtro(){
+                                list_rows.each(function(){
+                                    $(this).toggle(must_be_displayed(this));
+                                })
+                            }
+
+                            function must_be_displayed(a_row){
+                                return check_by_departamento(a_row) && check_by_modalidad(a_row) &&
+                                check_by_estado(a_row) && check_by_input(a_row);
+                            }
+
+                            function check_by_departamento(a_row){
+                                let checked = $("#opciones_departamentos li input:checked").map(function(){
+                                    return $(this).val();
+                                });
+                                //console.log("lista de checkeados: ");
+                                //console.log(checked);
+                                if(checked.length == 0){
+                                    return true;
+                                } else {
+                                    let departamento_row_value = $(a_row).children('.tabla_col_4').text();
+                                    //console.log("valor de departamento en fila: "+departamento_row_value);
+                                    return is_inside_check(departamento_row_value, checked);
+                                }
+                            }
+
+                            function check_by_modalidad(a_row){
+                                let checked = $("#opciones_modalidad li input:checked").val();
+                                //console.log("valor de check: "+checked);
+                                if(checked == undefined){
+                                    return true;
+                                } else {
+                                    let modalidad_value = $(a_row).children('.tabla_col_3').text();
+                                    //console.log("valor de modalidad en fila: "+modalidad_value);
+                                    return modalidad_status(checked, modalidad_value);
+                                }
+                            }
+
+                            function check_by_estado(a_row){
+                                let checked = $("#opciones_estado li input:checked").map(function(){
+                                    return $(this).val().toLowerCase();
+                                });
+                                //console.log("length de check estado: "+checked.length);
+                                if(checked.length == 0){
+                                    return true;
+                                } else {
+                                    let estado_row_value = $(a_row).children('.tabla_col_5').text().toLowerCase();
+                                    console.log("valor de estado en fila: "+estado_row_value);
+                                    return is_inside_check(estado_row_value, checked);
+                                }
+                            }
+
+                            function check_by_input(a_row){
+                                var busca_nombre = $("#filtro_buscador").val().toLowerCase();
+                                if(busca_nombre){ //si el campo esta vacio se considera false
+                                    var nombre_evento = $('> .tabla_col_2', a_row).text();
+                                    return nombre_evento.toLowerCase().indexOf(busca_nombre) > -1;
+                                }
+                                else{
+                                    //console.log("buscador vacio");
+                                    return true;
+                                }
+                            }
+
+                            function is_inside_check(text, checks){//checks debe ser un objeto con n elementos strings (no array)
+                                let return_value = false;
+                                checks.each(function(){
+                                    console.log("contenido de check: "+this);
+                                    let index = text.indexOf(this);
+                                    //console.log("posicion dentro del string: "+index);
+                                    if(index >= 0){
+                                        return_value = true;
+                                    }
+                                })
+                                return return_value;
+                            }
+
+                            function modalidad_status(modalidad, campo_modalidad){
+                                switch(modalidad){
+                                    case "PRESENCIAL":
+                                        return is_presential(campo_modalidad);
+                                        break;
+                                    case "VIRTUAL":
+                                        return is_virtual(campo_modalidad);
+                                        break;
+                                    case "HIBRIDO":
+                                        return is_hybrid(campo_modalidad);
+                                        break;
+                                    default:
+                                        return true;
+                                }
+                            }
+
+                            function is_virtual(campo_modalidad){
+                                return contiene(campo_modalidad,"Link de reunion:") && !contiene(campo_modalidad,"Ubicacion:");
+                            }
+                            function is_presential(campo_modalidad){
+                                return contiene(campo_modalidad,"Ubicacion:") && !contiene(campo_modalidad,"Link de reunion:");
+                            }
+                            function is_hybrid(campo_modalidad){
+                                return contiene(campo_modalidad,"Link de reunion:") && contiene(campo_modalidad,"Ubicacion:");
+                            }
+                            function contiene (texto, contenido){
+                                return texto.indexOf(contenido) >= 0;
+                            }
+
+                        });
+                    </script>
+    </div>
+</body>
+</html>

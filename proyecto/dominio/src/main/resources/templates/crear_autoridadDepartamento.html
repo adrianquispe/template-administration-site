@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Socio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;0,700;0,800;1,400&display=swap"
+          rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" th:href="@{/css/reset.css}" href="../static/css/reset.css">
+  <link rel="stylesheet" th:href="@{/css/dash_style.css}" href="../static/css/dash_style.css">
+  <link rel="stylesheet" th:href="@{/css/crearSocio_style.css}" href="../static/css/crearSocio_style.css">
+</head>
+
+<body>
+<header>
+  <div id="top_bar">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div id="top_content">
+            <img th:src="@{/img/logo_copal.svg}" src="../static/img/logo_copal.svg" alt="logo copal"
+                 class="top_icon_size">
+            <div>
+              <span class="user_name">Nombre del Usuario</span>
+              <img th:src="@{/img/icon_usuario.png}" src="../static/img/icon_usuario.png"
+                   alt="logo copal" class="top_icon_size">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="contenido_principal" class="container-fluid">
+  <div class="row" style="height: 100%;">
+    <aside id="side_menu" class="px-3 py-5 col-2">
+      <div class="contenido_menu_lateral">
+        <a href="#" class="btn side_option" type="button">Inicio</a>
+        <a href="#" class="btn side_option" type="button">Socios</a>
+        <a href="#" class="btn side_option" type="button">Departamentos</a>
+      </div>
+    </aside>
+    <section id="main_content" class="col-10">
+      <div class="cont__breadcrum">
+        <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
+          <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a th:ref="@{/autoridadesDepartamentos}" >autoridades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear Autoridad</li>
+          </ol>
+        </nav>
+      </div>
+
+
+
+      <div class="cont__form container-fluid">
+        <form th:action="@{/autoridadesDepartamentos}" th:object="${autoridadDepartamento}" method="post" class="formulario">
+          <h2>Crear Nueva Autoridad</h2>
+          <div class="cont__grupo row" style="font-size:16px">
+            <div>
+              <label class="form__label">Los campos con '*' son obligatorios</label>
+            </div>
+          </div>
+          </br></br></br></br>
+
+          <div class="row">
+            <div class="cont__grupo">
+              <div>
+                <label for="nombre" class="form__label">Nombre *</label>
+                <input type="text" id="nombre" class="form__input"
+                       th:field="${autoridadDepartamento.nombreAutoridad}" />
+                <span th:if="${#fields.hasErrors('nombreAutoridad')}" th:errors="*{nombreAutoridad}"
+                      th:style="'color: red'"></span>
+              </div>
+            </div>
+
+            <div class="cont__grupo">
+              <div>
+                <label for="apellido">Apellido *</label>
+                <input type="text" id="apellido" class="form__input"
+                       th:field="${autoridadDepartamento.apellido}">
+                <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"
+                      th:style="'color: red'"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cont__grupo">
+            <label for="rolAutoridad" class="form-label">Rol de Autoridad</label>
+            <div>
+              <select id="rolAutoridad" th:field="${autoridadDepartamento.rol}" name="rolAutoridad">
+
+                <span class="lnr lnr-chevron-down"></span>
+                <option th:each="rol:${roles}" th:text="${rol.descripcion}" th:value="${rol.id}"> </option>
+              </select>
+
+            </div>
+          </div>
+
+
+          <div class="cont__grupo">
+            <button type="submit" class="btn_principal">CREAR</button>
+          </div>
+        </form>
+
+        <form method="get" th:action= "@{/rolAutoridad/nuevo}">
+          <button type="submit" class="btn btn-outline-info">Nuevo Rol</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+
+</html>

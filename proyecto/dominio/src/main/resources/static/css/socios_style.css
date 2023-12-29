@@ -1,0 +1,48 @@
+table{
+    width: 100%;
+    border-collapse: collapse;
+
+}
+.tabla_socios{
+    margin-top: 1rem;
+    text-align: center;
+}
+.tabla_socios thead th{
+    color: white;
+    background-color: var(--background_color_table_head);
+}
+.tabla_socios td{
+    background-color: #d9d9d9;
+    vertical-align: middle;
+}
+.logo_lista{
+    height: 5rem;
+    width: auto;
+    border: 3px solid rgba(40, 53, 73, 1);
+    border-radius: 10%;
+}
+.icon_font{
+    color: #67b4c0;
+    font-size: 2rem;
+}
+#titulo{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+#barra_accion{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.boton_nuevo_socio{
+    display: block;
+}
+.boton_nuevo_socio:hover{
+    color: white;
+}
+.logo_size{
+    height: 4rem;
+    width: auto;
+}

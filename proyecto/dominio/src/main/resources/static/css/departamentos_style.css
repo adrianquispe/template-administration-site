@@ -1,0 +1,59 @@
+#titulo{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.descripcion_superdep{
+    font-size: 1rem;
+}
+.caja{
+    margin: .5rem 0;
+    border: .125rem solid #67b4c0;
+    border-radius: .25rem;
+}
+.celda_info{
+    background-color: white !important;
+    border: none;
+}
+.titulo_superdep{
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.contenido_card_logo_acciones, .contenido_card_integrantes{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.contenido_card_logo_acciones{
+    text-align: center;
+}
+.icon_depto{
+    height: 4rem;
+    width: auto;
+}
+#contenedor_pagina{
+    height: inherit;
+}
+#navegador_depa{
+    margin-top: .5rem;
+}
+
+
+/* css del estilo de celda form */
+.form-floating>.form-control,
+.form-floating>.form-control-plaintext {
+  padding: 0rem 0.75rem;
+}
+
+.form-floating>.form-control,
+.form-floating>.form-control-plaintext,
+.form-floating>.form-select {
+  height: calc(2.5rem + 2px);
+  line-height: 1;
+}
+
+.form-floating>label {
+  padding: 0.5rem 0.75rem;
+}
+
+

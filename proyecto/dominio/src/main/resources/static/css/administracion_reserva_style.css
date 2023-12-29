@@ -1,0 +1,157 @@
+.logo{
+    justify-content:center;
+    width: 90%;
+    height: 90%;
+}
+
+h1{
+    text-align: center;
+    vertical-align: baseline;
+    line-height: 1.185em;
+    color: #283549;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: 700;
+    word-wrap: normal;
+    padding-left: 30%;
+    padding-right: 30%;
+    }
+
+    h1::after {
+        content: " ";
+        display: block;
+        width: 20%;
+        height: 2px;
+        margin: 20px auto;
+        background: #67b4c0;
+      }
+
+    .descripcion{
+        line-height: 1.556em;
+        text-align: justify;
+        vertical-align: baseline;
+        color: #283549;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 300;    
+    }
+
+    .departamento{
+        color: #283549;
+        font-family: Montserrat;
+        font-size: 20px;
+        font-weight: 700;
+        word-wrap: normal;
+        line-height: 1.2em;
+        padding: 20px 0 20px 0;
+       display: block;
+    }
+
+    .roles{
+        font-family: Montserrat;
+        font-weight: 400 !important;
+        margin: 20px  0 0 0;
+        font-size: 14px;
+        color: #d55453;
+        text-align: left;
+    }
+
+    .presidente{
+        line-height: 1.556em;
+        color: #283549;
+        font-family: Montserrat;
+        font-size: 14px;
+        text-align: left;
+        font-weight:400;
+    }
+
+    .subtitulo{
+        padding: 15px 0 0 30px;
+        line-height: 1.257em;
+        color: #283549;
+        font-size: 18px;
+        font-weight: bold;
+        word-wrap: normal;
+       
+    }
+
+    .subtitulo::after {
+        content: " ";
+        display: flex;
+        width: 5%;
+        height: 2px;
+        margin: 10px 5px 0 5px;
+        background: #67b4c0;
+        text-align: left;
+      }
+
+    
+.opciones{
+    background: #67b4c0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0%;
+    cursor: pointer;
+    margin: 20px 60px 20px 20px;
+    padding: 8px 30px 8px 30px;
+    position: relative;
+    display: inline-block;
+}
+
+.opciones:hover{
+    background: rgba(103, 180, 192, 0.5);
+    color: #ffffff;
+}
+
+.descripcion{
+    margin-right: 25px;
+}
+
+.informacion{
+    margin-top: 10px;
+}
+
+.datos{
+    margin-left: 40px;
+}
+.datos1{
+    margin-left: 150px;
+}
+
+#estado {
+    border: none;
+    outline: none; /* Para quitar el contorno de enfoque al hacer clic */
+}
+
+#estado:hover {
+    border: none;
+}
+
+#estado option:checked {
+    border: none;
+}
+
+#estado option::after{
+    border: none;
+}
+
+.cambioCantidad{
+    width: 40%;
+     display:inline;
+     border: none;
+     border-bottom: 1px solid #67b4c0;
+     text-align: center;
+}
+
+td{
+    justify-content: center;
+}
+
+
+
+
+
+
+

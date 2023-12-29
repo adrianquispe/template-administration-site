@@ -1,0 +1,40 @@
+.contenedor_general_contenido_pagina{
+    height: calc(100% - 3.5rem);
+    width: 100%;
+}
+#breadcrum{
+    --bs-breadcrumb-divider: '|';
+    padding: 1rem 2rem;
+}
+.breadcrumb, .breadcrumb-item{
+    margin: 0;
+}
+
+.breadcrumb-item a{
+    color: rgb(155, 155, 155);
+    text-decoration: none;
+}
+.breadcrumb-item a:hover{
+    color: #67b4c0;
+}
+
+.titulo{
+    color: #283549;
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+    margin: 40px auto;
+}
+.titulo::after {
+    content: " ";
+    display: block;
+    width: 15%;
+    height: 2px;
+    margin: 20px auto;
+    background: #67b4c0;
+}
+
+/* css del scroll  */
+.ss-content > div{
+    margin: 1rem;
+}

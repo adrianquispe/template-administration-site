@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="../../static/css/reset.css">
+    <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;0,700;0,800;1,400&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+    <!-- css+js del scrol -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/dash_style.css}" href="../../static/css/dash_style.css">
+    <link rel="stylesheet" th:href="@{/css/estilos_compartidos.css}" href="../../static/css/estilos_compartidos.css">
+    <link rel="stylesheet" th:href="@{/css/infoEventos_style.css}" href="../../static/css/infoEventos_style.css">
+    <title>Informacion evento</title>
+
+</head>
+
+<body>
+    <header th:replace="dashboard :: cabecera">  </header>
+        
+    <main>
+            <aside th:replace="dashboard :: menu_lateral"></aside>
+            <section  class="flex-fill contenedor_contenido_principal">
+
+                <div id="breadcrum">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/eventos}">Eventos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Información del evento</li>
+                      </ol>
+                    </nav>
+                </div>
+
+                <div th:object="${evento}" class="contenedor_general_contenido_pagina" ss-container>
+
+                    
+                    <div class="informacion row ">
+                        
+                        <div class="col imagen">
+                            <img th:src= "@{'../'+${evento.imagen}}" alt="icono_evento" class="logo">
+                        </div>
+                        <div class="col descripcion">
+                            <div class="row">
+                                <h1  th:text="${evento.nombre}"> </h1>
+                            </div>
+                            <div class="descripcion row ">
+                                <p th:text="${evento.descripcion}"> </p>
+                            </div>
+                        
+                            <div class="descripcion row  ">
+                                <!-- <div class="evento-info">
+                                    <span th:if="${evento.activo}"> <p>Activo</p> </span>
+                                    <span th:if="${evento.finalizado}"> <p>Finalizado</p> </span>
+                                    <span th:if="${evento.cancelado}"> <p>Cancelado</p> </span>
+                                
+                                    <img class="icono-edicion" th:src="@{/img/icons_edicion/editar.png}" alt="Icono de edición" id="boton-cambio" onclick="cambiarContenido() >                                 
+                                
+                                    <form th:action="@{'../evento/' + ${evento.id}}" method="post" class="formulario" id="formulario">
+                                        <select name="estado" id="estado" style="border: none; outline: none;">
+                                            <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                                        </select>
+                                        <input class="opciones" type="submit" value="Editar">
+                                    </form> 
+                                </div> -->
+                                <!-- <div>
+                                    <span th:if="${evento.activo}"> <p>Activo</p> </span>
+                                    <span th:if="${evento.finalizado}"> <p>Finalizado</p> </span>
+                                    <span th:if="${evento.cancelado}"> <p>Cancelado</p> </span>
+                                    <img class="icono-edicion"  th:src="@{/img/icons_edicion/editar.png}" alt="Icono de edición" />
+
+                                </div> -->
+
+                                <form th:action="@{'../evento/' + ${evento.id}}" method="post">
+                                    <!-- <label for="estado">Cambiar estado:</label> -->
+
+                                    <!-- <select name="estado" id="estado" style="border: none; outline: none;">
+
+                                    <p th:text="'Actualmente: ' + ${evento.estado}"></p> -->
+                                    <select name="estado" id="estado">
+
+                                        <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                                    </select>
+                                    <input class="opciones" type="submit" value="Editar">
+                                </form> 
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                    <div class="datos">
+
+                        <div class="subtitulo">Datos del Evento</div>
+                        
+                        <div  class="informacion row ">
+                            <div class="col datos1 col-4" >
+                                <p class="roles">Organiza: </p>
+                                <span th:text="${evento.departamentoOrganizador.nombre}" class="presidente"></span><br>
+
+                                <p class="roles">Fecha de Inicio</p>
+                                <span th:text="${#temporals.format(evento.fechaHoraInicio, 'dd MMM yyyy')}" class="presidente"></span> <!-- Fecha -->
+
+                                <p class="roles">Hora de Inicio</p>
+                                <span th:text="${#temporals.format(evento.fechaHoraInicio, 'HH:mm') + ' hs'}" class="presidente"> hs</span>
+
+                                <p class="roles">Reunión</p>
+                                <span th:if="${evento.virtual}">
+                                    <p th:text="${evento.linkReunion}" class="presidente"></p>
+                                </span>
+                                <span th:if="${evento.hibrido}">
+                                    <p th:text="'Link de reunion: ' + ${evento.linkReunion}" class="presidente"></p>
+                                    <p th:text="'Ubicacion: ' + ${evento.ubicacion.provincia} + ' ' + ${evento.ubicacion.calle} + ' ' + ${evento.ubicacion.altura} + ' Piso: ' + ${evento.ubicacion.piso}" class="presidente"></p>
+                                </span>
+                                <span th:if="${evento.presencial}">
+                                     <p th:text="'Ubicacion: ' + ${evento.ubicacion.provincia} + ' ' + ${evento.ubicacion.calle} + ' ' + ${evento.ubicacion.altura} + ' Piso: ' + ${evento.ubicacion.piso}" class="presidente"></p>
+                                </span>
+                                
+                            </div>
+                                
+                            <div class="col datos2">
+
+                                <p class="roles">Modalidad</p> 
+                                <span th:text="${evento.tipo}" class="presidente"></span><br>
+
+                                <p  class="roles">Fecha de Finalización</p>
+                                <span th:text="${#temporals.format(evento.fechaHoraFin, 'dd MMM yyyy')}" class="presidente"></span> <!-- Fecha -->
+
+                                <p  class="roles">Hora de Finalización</p>
+                                <span th:text="${#temporals.format(evento.fechaHoraFin, 'HH:mm') + ' hs'}" class="presidente"></span> <!-- Hora -->
+
+
+                               
+                            </div>  
+                            
+                        </div>
+                        <br><br>
+
+                        <div class="subtitulo"> Participantes </div> <br>
+
+                        <!-- <div  class="informacion row row-cols-2">
+                            <div class="col " >
+                                <div class="roles" th:each="participante : ${evento.participantes}">
+                                    <p class="presidente" th:text="${participante.nombre} + ' ' + ${participante.apellido} + ' | ' + ${participante.mail}"></p>
+                                    <div th:if="${participante.otros != ''}"  class="presidente">
+                                        <p th:text="'Empresa: ' + ${participante.otros}"></p>
+                                    </div>
+                                    <div th:if="${participante.otros == ''}"  class="presidente">
+                                        <div th:if="${participante.socio.camara}">
+                                            <p th:text="'Camara: ' + ${participante.socio.denominacion}"></p>
+                                        </div>
+                                        <div th:unless="${participante.socio.camara}">
+                                            <p th:text="'Empresa: ' + ${participante.socio.denominacion}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+                        <table class="table" style="width: 80%;margin-left: 100px;"   >
+                            <thead >
+                            <tr>
+                                <th scope="col ">Nombre y Apellido</th>
+                                <th scope="col ">Email</th>
+                                <th scope="col ">Entidad</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr th:each="participante : ${evento.participantes}">
+                                <td  class="presidente" th:text="${participante.nombre} + ' ' + ${participante.apellido}"></td>
+                                <td  th:text="${participante.mail}"></td>
+                                <td>
+                                    <div th:if="${participante.otros != ''}"  class="presidente">
+                                        <p th:text="'Empresa: ' + ${participante.otros}"></p>
+                                    </div>
+                                    <div th:if="${participante.otros == ''}"  class="presidente">
+                                        <div th:if="${participante.socio.camara}">
+                                            <p th:text="'Camara: ' + ${participante.socio.denominacion}"></p>
+                                        </div>
+                                        <div th:unless="${participante.socio.camara}">
+                                            <p th:text="'Empresa: ' + ${participante.socio.denominacion}"></p>
+                                        </div>
+                                    </div>
+                                </td>
+                              </tr>
+                              
+                            </tbody>
+                          </table>
+
+
+                          <br><br><br><br><br>
+                        <!--
+                        <div class="d-md-flex justify-content-md-center">
+                          <a th:href="'/departamento/' + ${departamento.id} + '/editar'">
+                              <button class="btn opciones" type="button">Inscripción</button>
+                          </a>-->
+                           <!-- <span th:if="${evento.activo}">
+                              <form method="post" th:action= "@{'/departamento/estado/' + ${evento.id}}">
+                                  <button type="submit" class="btn btn opciones" name="estado" value="false"><span class="lnr lnr-trash"> Dar de Baja</span></button>
+                              </form>
+                          </span> -->
+                          <!-- <span th:unless="${evento.activo}">
+                            <form method="post" th:action= "@{'/departamento/estado/' + ${evento.id}}">
+                              <button type="submit" class="btn btn opciones" name="estado" value="true"><span class="lnr lnr-arrow-up-circle"> Dar de Alta</span></button>
+                            </form>
+                          </span> -->
+
+                        
+                    </div>
+                        
+                </div>
+
+            </section>
+            </div>
+
+        </div>
+    </main>
+    <footer></footer>
+    <!-- <script>
+        function cambiarContenido() {          // Obtiene los elementos por su id
+                             
+          var contenidoInicial = document.getElementById("evento-info");
+          var contenidoNuevo = document.getElementById("formulario");
+    
+          // Alterna la visibilidad de los elementos
+          contenidoInicial.style.display = "none";
+          contenidoNuevo.style.display = "block";
+        }
+
+      </script> -->
+
+</body>
+
+</html>

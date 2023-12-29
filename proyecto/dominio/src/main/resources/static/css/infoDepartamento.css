@@ -1,0 +1,109 @@
+.logo{
+    justify-content:center;
+    width: 90%;
+    height: 90%;
+}
+
+h1{
+    text-align: center;
+    vertical-align: baseline;
+    line-height: 1.185em;
+    color: #283549;
+    font-family: Montserrat;
+    font-size: 50px;
+    font-weight: 900;
+    word-wrap: normal;
+    margin: 0;
+    }
+
+    h1::after {
+        content: " ";
+        display: block;
+        width: 20%;
+        height: 2px;
+        margin: 20px auto;
+        background: #67b4c0;
+      }
+
+    .descripcion{
+        line-height: 1.556em;
+        text-align: justify;
+        vertical-align: baseline;
+        color: #283549;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 300;    
+    }
+
+    .departamento{
+        color: #283549;
+        font-family: Montserrat;
+        font-size: 20px;
+        font-weight: 700;
+        word-wrap: normal;
+        line-height: 1.2em;
+        padding: 20px 0 20px 0;
+       display: block;
+    }
+
+    .roles{
+        font-family: Montserrat;
+        font-weight: 300;
+        margin: 20px  0 0 0;
+        font-size: 14px;
+        color: #d55453;
+        text-align: left;
+    }
+
+    .presidente{
+        line-height: 1.556em;
+        color: #283549;
+        font-family: Montserrat;
+        font-size: 14px;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .subtitulo{
+        padding: 30px 0 30px 40px;
+        line-height: 1.257em;
+        color: #283549;
+        font-size: 18px;
+        font-weight: bold;
+        word-wrap: normal;
+       
+    }
+
+    .subtitulo::after {
+        content: " ";
+        display: flex;
+        width: 5%;
+        height: 2px;
+        margin: 10px 5px 0 5px;
+        background: #67b4c0;
+        text-align: left;
+      }
+
+    
+.opciones{
+    background: #67b4c0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0%;
+    cursor: pointer;
+    margin: 60px 120px 100px 120px;
+    padding: 10px 30px 10px 30px;
+    position: relative;
+    display: inline-block;
+}
+
+.opciones:hover{
+    background: rgba(103, 180, 192, 0.5);
+    color: #ffffff;
+}
+
+
+
+

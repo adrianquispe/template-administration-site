@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Redirect</title>
+</head>
+<body>
+
+<h2>Enter a value:</h2>
+<form th:action="@{/pruebaRed}" method="get">
+    <input type="text" name="idReserva" placeholder="Enter value">
+    <button type="submit">Submit</button>
+</form>
+
+<div th:if="${valor}">
+    <p th:text="${valor}"></p>
+</div>
+
+</body>
+</html>

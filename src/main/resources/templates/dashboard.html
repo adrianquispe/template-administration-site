@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/reset.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
+    <link href="../static/css/dash_style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <title>COPAL</title>
+</head>
+<body>
+<header th:fragment="cabecera">
+    <div id="top_bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div id="top_content">
+                        <img th:src="@{/img/logo_copal.svg}" alt="logo copal" class="top_icon_size">
+                        <div>
+                            <span class="user_name">Nombre usuario</span>
+                            <img th:src="@{/img/icon_usuario.png}" alt="logo copal" class="top_icon_size">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main id="contenido_principal" class="container-fluid">
+    <div class="row" style="height: 100%;">
+        <aside th:fragment="menu_lateral" id="side_menu" class="px-3 py-5 col-2">
+            <div class="contenido_menu_lateral">
+                <div class="accordion accordion-flush" id="indice_principal">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button seleccionable" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <span class="subrayado_animado">Socios</span>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#indice_principal">
+                            <div class="accordion-body">
+                                <a th:href="@{/socios}" class="seleccionable linea_separada">Lista</a>
+                                <a th:href="@{/socios/nuevo}" class="seleccionable linea_separada">Nuevo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button seleccionable " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                <span class="subrayado_animado">Departamentos</span> 
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="collapseTwo" data-bs-parent="#indice_principal">
+                            <div class="accordion-body">
+                                <a th:href="@{/departamentos}" class="seleccionable linea_separada">Lista</a>
+                                <a th:href="@{/departamentos/nuevo}" class="seleccionable linea_separada">Nuevo</a>    
+                                <div class="accordion accordion-flush subindice" id="subindice_1">
+                                    <div class="accordion-item">
+                                        <h3 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button seleccionable" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                <span class="subrayado_animado">Tipos Departamento</span>
+                                            </button>
+                                        </h3>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="collapseThree" data-bs-parent="#subindice_1">
+                                            <div class="accordion-body">
+                                                <a th:href="@{/tiposDepartamentos}" class="seleccionable linea_separada">Lista</a>
+                                                <a th:href="@{/tiposDepartamentos/nuevo}" class="seleccionable linea_separada">Nuevo</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="accordion" id="accordionExample4" >
+                                    <div class="accordion-item">
+                                        <h3 class="accordion-header" id="headingFour">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                Autoridades
+                                            </button>
+                                        </h3>
+                                        <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="collapseFour" data-bs-parent="#accordionExample4">
+                                            <div class="accordion-body">
+                                                <p>
+                                                    <a th:href="@{/autoridadesDepartamentos}" class="btn side_option 1" type="button">Listar Autoridades</a>
+                                                </p>
+                                                <a th:href="@{/autoridadesDepartamentos/nuevo}" class="btn side_option 1" type="button">Nueva Autoridad</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+        <section id="main_content" class="col-10">
+            <div style="background-color: red; width: 100%; height: 100%;"></div>
+            <!--<embed type="text/html" src="lista_socios.html" class="embed_web"></div>-->
+        </section>
+    </div>
+</main>
+<footer></footer>
+</body>
+</html>

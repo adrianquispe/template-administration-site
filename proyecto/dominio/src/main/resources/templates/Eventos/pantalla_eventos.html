@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    
+</head>
+<body>
+    <div th:fragment="contenido" id="contenedor_pagina">
+        <div id="breadcrum">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb ">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Eventos</li>
+              </ol>
+            </nav>
+        </div>
+        <div class="contenedor_general_contenido_pagina" ss-container>
+            <div class="titulo">Eventos</div>
+            <!-- funcionalidad no implementada
+               <div class="seleccion_lista_calendario">
+                <button class="estilo_boton_generico opciones_muestra">Lista</button>
+                <button class="estilo_boton_generico opciones_muestra">Calendario</button>
+                </div> 
+            -->
+            <br>
+            <div th:replace="Eventos/lista_eventos :: formato_lista"></div>
+        </div>
+    </div>
+</body>
+</html>

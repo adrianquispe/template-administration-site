@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div th:fragment="contenido" id="contenedor_pagina">
+  <div id="breadcrum">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{../departamentos}">Departamentos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tipos de Departamentos</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="contenedor_general_contenido_pagina" ss-container>
+    <div class="titulo">Lista de Tipos de Departamentos</div>
+    <div class="contenedor_tabla">
+      <table class="table table-bordered border-white tabla_socios">
+        <thead>
+        <tr>
+          <th class="col-2">Descripción</th>
+          <th class="col-2">Estado</th>
+          <th class="col-1">INFO</th>
+        </tr>
+        </thead>
+        <tbody id="tabla_contenido">
+        <tr th:if="${tipos.empty}">
+          <td colspan="5	"> No data available </td>
+        </tr>
+        <tr th:each="tipo : ${tipos}">
+          <td><span th:text="${tipo.nombre}"> Mostrar Denominación </span></td>
+          <td>
+            <span th:if="${tipo.activo}"> <div>Activo</div> </span>
+            <span th:unless="${tipo.activo}"> <div>Inactivo</div> </span>
+          </td>
+          <td>
+            <span th:if="${tipo.activo}">
+              <form method="post" th:action= "@{'/tipoDepartamento/estado/' + ${tipo.id}}">
+                <button type="submit" class="boton_como_texto p-0" name="estado" value="false"><span class="lnr lnr-trash icono_en_circulo_chico"></span></button>
+              </form>
+            </span>
+            <span th:unless="${tipo.activo}">
+              <form method="post" th:action= "@{'/tipoDepartamento/estado/' + ${tipo.id}}">
+                <button type="submit" class="boton_como_texto p-0" name="estado" value="true"><span class="lnr lnr-arrow-up-circle icono_en_circulo_chico"></span></button>
+              </form>
+            </span>
+            <div>
+              <a th:href="@{'/tipoDepartamento/editar/'+ ${tipo.id}}"><span class="lnr lnr-pencil icono_en_circulo_chico"></span></a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+</div>
+</body>
+</html>

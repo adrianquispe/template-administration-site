@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="../static/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- css+js del scrol -->
+    <link rel="icon" href="https://copal.org.ar/wp-content/uploads/fbrfg/favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" th:href="@{/css/dash_style.css}" href="../../static/css/dash_style.css">
+    <link rel="stylesheet" th:href="@{/css/estilos_compartidos.css}" href="../../static/css/estilos_compartidos.css">
+    <link rel="stylesheet" th:href="@{/css/crearSocio_style.css}" href="../../static/css/crearSocio_style.css">
+
+    <style>
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+    </style>
+
+</head>
+
+<body ss-container>
+    <header>
+        <div>
+            <div class="row container-fluid header_form">
+                        <div>
+                            <img th:src="@{/img/logo_copal.svg}" src="../../static/img/logo_copal.svg" alt="logo copal" class="top_icon_size">
+                        </div>
+            </div>
+        </div>
+    </header>
+
+<main class="container-fluid">
+        <section style="width: 100%;" class="mx-5">
+                <div class="cont__form container-fluid">
+                    
+                    <div class="titulo">Formulario de Inscripción</div>
+                        <div class="row mx-2">
+                            <div class="col-3">
+                                <h3 class="subtitulo">Datos del Evento</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="cont__grupo" style="display: flex;">
+                                <span class="material-symbols-outlined mx-1">badge</span>
+                                <label for="nombreEvento" class="form__label">Nombre:</label>
+                                <P id="nombreEvento" th:text="${evento.nombre}" class="sigla_empresa mx-2"></P>
+                            </div>
+                            <div class="cont__grupo" style="display: flex;">
+                                <span class="material-symbols-outlined mx-1">description</span>
+                                <label for="descripcionEvento" class="form__label">Descripción:</label>
+                                <P id="descripcionEvento" th:text="${evento.descripcion}" class="sigla_empresa mx-2"></P>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="cont__grupo" style="display: flex;">
+                                <span class="material-symbols-outlined mx-1">moving_ministry</span>
+                                <label for="nombreDepartamento" class="form__label">Departamento:</label>
+                                <P id="nombreDepartamento" th:text="${evento.departamentoOrganizador.nombre}" class="sigla_empresa mx-2"></P>
+                            </div>
+                            <div class="cont__grupo" style="display: flex;">
+                                <span class="material-symbols-outlined mx-1">groups</span>
+                                <label for="modalidadEvento" class="form__label">Modalidad:</label>
+                                <P id="modalidadEvento" th:text="${evento.tipo}" class="sigla_empresa mx-2"></P>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="cont__grupo" style="display: flex;">
+                                <span class="material-symbols-outlined mx-1">location_on</span>
+                                <label class="form__label">Ubicación:</label>
+                                <p th:text="${evento.ubicacion.calle} + ' ' + ${evento.ubicacion.altura} + ' Piso: ' + ${evento.ubicacion.piso} + ', ' + ${evento.ubicacion.provincia}" class="sigla_empresa mx-2"></p>
+                            </div>
+                            <div class="cont__grupo" style="display: flex;">
+                                <span class="material-symbols-outlined mx-1">videocam</span>
+                                <label class="form__label">Link:</label>
+                                <p th:text="${evento.linkReunion}" class="sigla_empresa mx-2"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="cont__grupo" style="display: flex;">
+                                <span class="material-symbols-outlined mx-1">event_upcoming</span>
+                                        <div class="cont__grupo my-0">
+                                            <label for="inicioEvento" class="form__label">Fecha Inicio:</label>
+                                            <P id="inicioEvento" th:text="${#temporals.format(evento.fechaHoraInicio, 'dd MMM yyyy')}+${#temporals.format(evento.fechaHoraInicio, 'HH:mm') + ' hs'}" class="sigla_empresa  mx-2"></P>
+                                        </div>
+                            </div>
+                            <div class="cont__grupo">
+                                <div class="cont__grupo my-0">
+                                    <span class="material-symbols-outlined mx-1">calendar_clock</span>
+                                    <label for="finEvento" class="form__label">Fecha Finalización:</label>
+                                    <P id="finEvento" th:text="${#temporals.format(evento.fechaHoraFin, 'dd MMM yyyy')}+${#temporals.format(evento.fechaHoraFin, 'HH:mm') + ' hs'}" class="sigla_empresa  mx-2"></P>
+                                </div>
+                            </div>
+                        </div>
+
+                    <form th:action="@{/inscripcion/{id}(id=${evento.id})}" th:object="${participanteEvento}" method="post" class="formulario" enctype="multipart/form-data" onsubmit="showSuccessMessage()">
+                        
+                        <div class="row mx-2">
+                            <div class="col-3">
+                                <h3 class="subtitulo">Datos del Participante</h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="cont__grupo">
+                                <label for="nombreParticipante" class="form__label">Nombre*</label>
+                                <input type="text" id="nombreParticipante" class="form__input" name="nombreParticipante" th:field="${participanteEvento.nombre}" />
+                                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" th:style="'color: red'"></span>
+                            </div>
+    
+                            <div class="cont__grupo">
+                                <label for="objetivo" class="form_label">Apellido *</label>
+                                <input type="text" id="objetivo" class="form__input" th:field="${participanteEvento.apellido}">
+                                <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}" th:style="'color: red'"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="cont__grupo">
+                                <label for="mailParticipante" class="form_label">Mail *</label>
+                                <input type="text" id="mailParticipante" class="form__input" th:field="${participanteEvento.mail}">
+                                <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" th:style="'color: red'"></span>
+                            </div>
+                            <div class="cont__grupo">  
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="cont__grupo">
+                                <label for="otraEmpresa" class="form-label">Empresa/Cámara que pertenece</label>
+                                <div>
+                                <select id="otraEmpresa" class="selector_desplegable" th:field="${participanteEvento.socio}" name="tipo">
+                                    <option th:each="socio:${socios}" th:text="${socio.denominacion}" th:value="${socio.id}"> </option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                                </div>
+                            </div>
+
+                            <div class="cont__grupo">
+                                <div id="campoOtros">
+                                <label for="socio" class="form_label">Otra Empresa:</label>
+                                <input type="text" id="socio" class="form__input" th:field="${participanteEvento.otros}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cont__grupo">
+                                <button type="submit" class="btn_principal">Inscribirse</button>
+                            </div>
+                        </div>
+
+                        <div id="successMessage" class="success-message">
+                            ¡Te inscribiste al evento con éxito!
+                        </div>
+    
+                    </form>
+                </div>
+        </section>
+</main>
+
+
+    <script>
+        function showSuccessMessage() {
+            document.getElementById("successMessage").style.display = "block";
+        }
+    </script>
+    <script>
+        document.getElementById("campoOtros").style.display = "none";
+        document.getElementById("otraEmpresa").addEventListener('change', e=>{
+            if(e.target.value=="Otros"){
+                  document.getElementById("campoOtros").style.display = "block";
+            }else{document.getElementById("campoOtros").style.display = "none";}
+        })
+    </script>
+</body>
+</html>

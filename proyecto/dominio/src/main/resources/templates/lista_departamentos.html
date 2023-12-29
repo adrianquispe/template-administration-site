@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- no es neserario colocar nada aca, el thymeleaf basicamente copia codigo de aca asi que cualquier cosa
+      que vaya aca se omite -->
+</head>
+<body>
+<div th:fragment="contenido" id="contenedor_pagina">
+  <div id="breadcrum">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb ">
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Departamentos</li>
+      </ol>
+    </nav>
+  </div>
+  
+  <div class="contenedor_general_contenido_pagina" ss-container>
+    <div class="titulo">Departamentos</div>
+    <div th:each="tipo:${tipos}">
+      <div class="caja titulo_superdep" th:text="${tipo.nombre}">Departamento Técnico </div>
+      <div class="container-fluid px-0 caja">
+        <div class="row gx-3" th:if="${tipo.autoridades}">
+          <div class="col-4">
+            <div class="form-floating"  th:each="autoridad:${tipo.autoridades}">
+              <input type="text" disabled readonly class="form-control celda_info" id="id_super" placeholder="NO DATA" th:value="${autoridad.usuario.nombre} + ' ' + ${autoridad.usuario.apellido}">
+              <label for="id_super" th:text="${autoridad.rol.descripcion}">Coordinador</label>
+            </div>
+          </div>
+          <div class="col-8 descripcion_superdep" th:text="${tipo.objetivo}">COPAL cuenta con 7 Departamentos técnicos exclusivos para socios.
+            Cada Departamento se encuentra dirigido por profesionales altamente capacitados y con reconocida trayectoria en cada una de estas áreas, dichos Departamentos están compuestos por representantes de nuestros socios quienes se reúnen periódicamente para analizar y elevar propuestas sobre diferentes problemáticas inherentes.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-fluid p-0 m-0">
+        <div class="row row-cols-2 g-2">
+          <div class="col" th:each="departamento:${tipo.departamentos}">
+            <div class="card">
+              <div class="card-body row">
+                <div class="col contenido_card_logo_acciones">
+                  <div>
+                    <img th:src="@{${departamento.icono}}" alt="" class="icon_depto">
+                    <div th:text="${departamento.nombre}">Nombre-departamento</div>
+                    <div>
+                      <span th:if="${departamento.activo}"> <p>Activo</p> </span>
+                      <span th:unless="${departamento.activo}"> <p>Inactivo</p> </span>
+                    </div>
+                  </div>
+                  <div>
+                    Acciones
+                    <div>
+                      <a th:href="@{'/departamento/' + ${departamento.id} + '/editar'}"><span class="lnr lnr-pencil icono_en_circulo_chico"></span></a>
+                      <a th:href="@{'/departamento/' + ${departamento.id}}"><span class="lnr lnr-eye icono_en_circulo_chico"></span></a>
+                      <span th:if="${departamento.activo}">
+                        <form method="post" th:action= "@{'/departamento/estado/' + ${departamento.id}}" style="display: inline;">
+                          <button type="submit" class="boton_como_texto p-0" name="estado" value="false"><span class="lnr lnr-trash icono_en_circulo_chico"></span></button>
+                        </form>
+                      </span>
+                      <span th:unless="${departamento.activo}">
+                        <form method="post" th:action= "@{'/departamento/estado/' + ${departamento.id}}" style="display: inline;">
+                          <button type="submit" class="boton_como_texto p-0" name="estado" value="true"><span class="lnr lnr-arrow-up-circle icono_en_circulo_chico"></span></button>
+                        </form>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col contenido_card_integrantes">
+                  <div class="form-floating" th:each="autoridadDepto:${departamento.autoridades}">
+                    <input type="text" disabled readonly class="form-control celda_info" id="id_dep" placeholder="NO DATA" th:value="${autoridadDepto.usuario.nombre} + ' ' + ${autoridadDepto.usuario.apellido}">
+                    <label for="id_dep" th:text="${autoridadDepto.rol.descripcion}" >Presidente</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- no es neserario colocar nada aca, el thymeleaf basicamente copia codigo de aca asi que cualquier cosa
+      que vaya aca se omite -->
+</head>
+<body>
+  <div th:fragment="contenido" id="contenedor_pagina">
+    <div id="breadcrum">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Lista de Socios</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="contenedor_general_contenido_pagina" ss-container>
+      <div class="titulo">Lista de Socios</div>
+      <div id="barra_accion">
+        <div class="input-group">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Area</button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">TODO</a></li>
+            <li><a class="dropdown-item" href="#">TODO</a></li>
+            <li><a class="dropdown-item" href="#">TODO</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">TODO</a></li>
+          </ul>
+          <input id="imput_filter" type="text" class="form-control" placeholder="Buscar..." value="">
+        </div>
+        <div>
+          <a th:href="@{socios/nuevo}" type="button" class="boton_nuevo_socio link_sin_estilo estilo_boton_generico">Nuevo Socio</a>
+        </div>
+      </div>
+      <table class="table table-bordered border-white tabla_socios">
+        <thead>
+        <tr>
+          <th class="col-2">LOGO</th>
+          <th class="col-4">Empresa</th>
+          <th class="col-2">Socio</th>
+          <th class="col-1">Activo</th>
+          <th class="col-1">INFO</th>
+        </tr>
+        </thead>
+        <tbody id="tabla_contenido">
+        <tr th:if="${socios.empty}">
+          <td colspan="5	"> No data available </td>
+        </tr>
+        <tr th:each="socio : ${socios}">
+          <td><img th:src="@{${socio.logo}}" class="logo_size" alt="logo_socio">  </span></td>
+          <td><span th:text="${socio.denominacion}"> Mostrar Denominación </span></td>
+          <td><span th:text="${socio.tipo}"> Mostrar Tipo </span></td>
+          <td>
+            <span th:if="${socio.activo}"> <div>Activo</div> </span>
+            <span th:unless="${socio.activo}"> <div>Inactivo</div> </span>
+          </td>
+          <td><a th:href="'/socio/' + ${socio.id}"><span class="lnr lnr-eye icono_en_circulo_chico"></span></a></td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+  
+
+                    <script>
+                      $(document).ready(function(){
+                        $("#imput_filter").on("keyup", function() {
+                          var value = $(this).val().toLowerCase();
+                          $("#tabla_contenido tr").each(function() {
+                            //console.log($('> td', this));
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                          });
+                        });
+                      });
+                    </script>
+
+  </div>
+</section>
+</div>
+</body>
+</html>

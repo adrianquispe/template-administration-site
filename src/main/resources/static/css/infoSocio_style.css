@@ -1,0 +1,51 @@
+
+.informacion{
+    line-height: 1.556em;
+    text-align: justify;
+    vertical-align: baseline;
+    color: #283549;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 300;    
+}
+
+.sigla_empresa{
+    font-size: normal;
+    color: #283549;
+    size: 18px;
+    line-height: 20px;
+    font-weight:900;
+}
+
+.opciones{
+    background: #67b4c0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0%;
+    cursor: pointer;
+    margin: 60px 120px 100px 120px;
+    padding: 10px 30px 10px 30px;
+    position: relative;
+    display: inline;
+}
+
+.opciones:hover{
+    background: rgba(103, 180, 192, 0.5);
+    color: #ffffff;
+}
+
+
+.logo_size{
+    height: 150px;
+    width: 150px;
+    float: right; /* Alinea la imagen a la derecha */
+    margin-left: 10px; /* Agrega un margen a la izquierda para separar del contenido */
+    margin-bottom: 10px; 
+}
+
+p{
+    margin-top: 30px;
+    margin-left: 30px;
+}

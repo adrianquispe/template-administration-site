@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="../static/css/reset.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- css+js del scrol -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
+    
+    <link rel="stylesheet" th:href="@{/css/dash_style.css}" href="../static/css/dash_style.css">
+    <link th:href="@{/css/estilos_compartidos.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/editar-departamentos.css}" href="../static/css/editar-departamentos.css">
+
+    <title>Editar_departamento</title>
+</head>
+
+<body>
+    <header th:replace="dashboard :: cabecera"> </header>
+    <main id="contenido_principal" class="container-fluid">
+        <div class="row" style="height: 100%">
+            <aside th:replace="dashboard :: menu_lateral">
+            </aside>
+            <section id="main_content" class="col-10">
+                <!-- breadcrum de la pagina 
+                <div class="cont__breadcrum">
+                    <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
+                        <ol class="breadcrumb ">
+                            <li class="breadcrumb-item"><a th:href="@{/departamentos}">Departamentos</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Editar Departamento</li>
+                        </ol>
+                    </nav>
+                </div>
+                -->
+                <div id="breadcrum">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb ">
+                        <li class="breadcrumb-item"><a th:href="@{/departamentos}">Departamentos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Editar Departamento</li>
+                      </ol>
+                    </nav>
+                </div>
+                <div class="contenedor_general_contenido_pagina" ss-container>
+                    <form th:action="@{/departamento/{id}(id=${departamento.id})}" th:object="${departamento}" method="post" class="formulario" enctype="multipart/form-data">
+                        <h1>Editar departamento</h1>
+                        <br><br>
+                        <div class="informacion row row-cols-3">
+                            <div class="col col-1"></div>
+                            <div class="col col-2">
+                                <img th:src="@{'../../'+${departamento.icono}}" alt="icono" class="logo">
+
+                                <!-- <input type="text" th:id="${'inputIcono'}" th:value="${departamento.icono}"
+                                    style="display: none;" />
+                                <p th:if="${not editar}" th:text="${departamento.icono}"></p>
+                                <input type="text" th:if="${editar}" th:id="${'inputIcono'}"
+                                    th:value="${departamento.icono}" style="width: 90%;" />
+                                <img class="icono-edicion-imagen" th:if="${not editar}"
+                                    th:onclick="|activarEdicion('${departamento.id}')|"
+                                    src="../static/img/icons_edicion/editar-imagen.png" alt="Icono de edición" /> -->
+
+                            </div>
+
+                            <div class="col col-5">
+                                <div class="row departamento">
+                                    <p th:text="${departamento.nombre}" id="parrafoNombre"></p>
+                                    <input type="text" id="inputNombre" th:value="${departamento.nombre}" style="width: 90%;" th:field="${departamento.nombre}"/>
+                                    <img class="icono-edicion1" th:onclick="cambiarEditarNombre()" th:src="@{/img/icons_edicion/editar.png}" alt="Icono de edición" />
+                                </div>
+
+                                <div class="row departamento">
+                                    <p id="paragraphContent"  th:text="${departamento.objetivo}"> </p>
+                                    <input type="text" id="inputObjetivo" th:value="${departamento.objetivo}" style="width: 90%;" th:field="${departamento.objetivo}" />
+                                    <img class="icono-edicion1" th:onclick="cambiarEditarObjetivo()" th:src="@{/img/icons_edicion/editar.png}" alt="Icono de edición" />
+                                </div>
+                                </br>
+                                <div>
+                                    <span th:if="${departamento.activo}"> <p>Activo</p> </span>
+                                    <span th:unless="${departamento.activo}"> <p>Inactivo</p> </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="datos">
+
+                            <div class="subtitulo">Autoridades</div>
+
+                            <div th:each="autoridadDepartamento : ${departamento.autoridades}" class="informacion row row-cols-2">
+                                <div class="col " style="padding-left: 70px">
+                                    <p th:text="${autoridadDepartamento.rol.descripcion}" class="roles"></p>
+                                    <span th:text="${autoridadDepartamento.nombreAutoridad}" class="presidente"></span>  <br>
+
+
+                                    <!-- <input type="text" th:id="${'inputNombreApellido'}" th:value="${autoridadDepartamento.rol.nombre} + ' ' + ${autoridadDepartamento.rol.apellido}"
+                                        style="display: none;" />
+                                    <p th:if="${not editar}" th:text="${autoridadDepartamento.rol.nombre} + ' ' + ${autoridadDepartamento.rol.apellido}"></p>
+                                    <input type="text" th:if="${editar}" th:id="${'inputNombre'}"
+                                        th:value="${autoridadDepartamento.rol.nombre} + ' ' + ${autoridadDepartamento.rol.apellido}" />
+                                    <img class="icono-edicion" th:if="${not editar}"
+                                        th:onclick="|activarEdicion('${departamento.id}')|"
+                                        src="../static/img/icons_edicion/editar.png" alt="Icono de edición" /> -->
+
+                                    <br>
+
+                                </div>
+                                <div class="col">
+
+                                </div>
+
+                            </div>
+
+                            <div class="d-md-flex justify-content-md-center">
+                                <button class="btn opciones" type="button" onclick="window.location.href='/departamentos'">Cancelar</button>
+                                <button class="btn opciones" type="submit">Guardar</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+
+        </div>
+        </section>
+        </div>
+    </main>
+    <footer></footer>
+    <script th:inline="javascript">
+        function activarEdicion(idDepartamento) {
+            document.getElementById('inputNombre').style.display = 'inline';
+            // Puedes hacer otras cosas, como enviar el nuevo valor al servidor, etc.
+        }
+
+        var not_editarNombre = /*[[${not_editarNombre}]]*/ true; // Assuming a default value if it's not injected
+        var not_editarObjetivo = /*[[${not_editarObjetivo}]]*/ true;
+
+        function cambiarEditarObjetivo(){
+            not_editarObjetivo = !not_editarObjetivo;
+            console.log('editar: ' + not_editarObjetivo);
+
+            var paragraphContent = document.getElementById('paragraphContent');
+            var inputObjetivo = document.getElementById('inputObjetivo');
+
+                if (paragraphContent && inputObjetivo) {
+                    if (not_editarObjetivo) {
+                        // If not_editar is true, show the paragraph and hide the input
+                        paragraphContent.style.display = '';
+                        inputObjetivo.style.display = 'none';
+                    } else {
+                        // If not_editar is false, show the input and hide the paragraph
+                        paragraphContent.style.display = 'none';
+                        inputObjetivo.style.display = '';
+                    }
+                } else {
+                    console.error("One or both of the elements not found in the DOM.");
+                }
+        }
+
+        cambiarEditarObjetivo();
+
+        function cambiarEditarNombre(){
+            not_editarNombre = !not_editarNombre;
+            console.log('editar: ' + not_editarNombre);
+
+            var inputNombre = document.getElementById('inputNombre');
+            var parrafoNombre = document.getElementById('parrafoNombre');
+
+                if (parrafoNombre && inputNombre) {
+                    if (not_editarNombre) {
+                        inputNombre.style.display='none';
+                        parrafoNombre.style.display = '';
+                    } else {
+                        inputNombre.style.display='';
+                        parrafoNombre.style.display = 'none';
+                    }
+                } else {
+                    console.error("One or both of the elements not found in the DOM.");
+                }
+        }
+
+        cambiarEditarNombre();
+    </script>
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="../../static/css/reset.css">
+    <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;0,700;0,800;1,400&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+    <!-- css+js del scrol -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/dash_style.css}" href="../../static/css/dash_style.css">
+    <link rel="stylesheet" th:href="@{/css/estilos_compartidos.css}" href="../../static/css/estilos_compartidos.css">
+    <link rel="stylesheet" th:href="@{/css/administracion_reserva_style.css}" href="../../static/css/administracion_reserva_style.css">
+    <title>Reserva</title>
+
+</head>
+
+<body>
+    <header th:replace="dashboard :: cabecera">  </header>
+        
+    <main>
+            <aside th:replace="dashboard :: menu_lateral"></aside>
+            <section  class="flex-fill contenedor_contenido_principal">
+
+                <div id="breadcrum">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/eventos}">Espacios</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Reserva</li>
+                      </ol>
+                    </nav>
+                </div>
+
+                
+                <div class="contenedor_general_contenido_pagina" ss-container >
+
+                    <form th:action="@{'../reserva/' + ${reserva.uuid}}" th:object="${reserva}" method="post" class="formulario">
+
+                        
+                        <div class="informacion row ">
+                            
+                            <div class="col descripcion">
+                                <div class="row">
+                                    <h1 >Información de Reserva </h1>
+                                </div>
+                                
+                            
+                                
+                            </div>
+                        </div>
+                    
+                        
+                        <div class="datos">
+
+                            <div class="subtitulo">Datos de la Reserva</div>
+                            
+                            <div  class="informacion row ">
+                                <div class="col datos1 col-4" >
+                                    <p class="roles">Referente </p>
+                                    <span th:text="${reserva.referenteNombre} + ' ' + ${reserva.referenteApellido} + ' | ' + ${reserva.referenteMail}" class="presidente"></span><br>
+
+                                    <p class="roles">Lugar</p>
+                                    <span th:text="${reserva.espacio.nombre}" class="presidente"></span> <br>
+
+                                    <p class="roles">Hora de Inicio</p>
+                                    <span th:text="${reserva.horaInicio + ' hs'}" class="presidente"> hs</span>
+
+                                    <p class="roles" >Notas Adicionales</p> 
+                                    <span th:text="${reserva.descripcion}" class="presidente " style="padding-right: 180px;"> </span>
+                                    
+                                </div>
+                                    
+                                <div class="col datos2">
+
+                                    <p class="roles">Departamento</p> 
+                                    <span th:text="${reserva.referenteDepartamento.nombre}" class="presidente"></span><br>
+
+                                    <p  class="roles">Fecha</p> 
+                                    <span th:text="${#temporals.format(reserva.fechaSolicitada, 'dd MMM yyyy')}" class="presidente"></span> <br><!-- Fecha -->
+                                    
+                                    <p  class="roles">Hora de Finalización</p>
+                                    <span th:text="${reserva.horaFin + ' hs'}" class="presidente"></span> <br><!-- Hora -->
+
+                                    <p  class="roles">Estado</p> 
+                                    <span  class="presidente">
+                                        <select name="estado" id="estado" onchange="cambiarInputs()">
+                                            <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                                        </select>
+                                    </span>
+
+                                    <p class="roles" style="display:none" id="titulo_motivo">Motivo</p>
+                                    <textarea name="motivo" id="textarea_motivo"  rows="2" style="display:none; width: 400px; border: none; border-bottom: 1px solid #67b4c0;"></textarea>
+                                
+                                </div>  
+                                
+                            </div>
+                            <br><br>
+
+                            <div class="subtitulo"> Recursos </div> <br>
+
+                            <table class="table presidente" style="width: 70%; margin-left: 100px; table-layout: fixed; text-align: center;"    >
+                                <thead >
+                                <tr>
+                                    <th style="font-weight: bolder;" >RECURSO</th>
+                                    <th style="font-weight: bolder;">CANTIDAD</th>
+                                    <th style="font-weight: bolder;">EDITAR</th>
+                                    
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="recursoDeReserva, iterStat : ${recursos}">
+                                    <td   th:text="${recursoDeReserva.recurso.nombre}"></td>
+                                    <td> <p id="parrafo_cantidad" th:text="${recursoDeReserva.cantidad}"></p></td>
+                                    <td> <input type="number" id="input_cantidad" th:value="${recursoDeReserva.cantidad}" class="cambioCantidad" th:field="*{recursosDeReserva[__${iterStat.index}__].cantidad}" /></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <br><br><br>
+                                <!--
+                                <div class="d-md-flex justify-content-md-center">
+                                    <button class="btn opciones" type="button" onclick="window.location.href='/departamentos'">Actualizar</button>
+                                </div>-->
+
+                                <div class="d-md-flex justify-content-md-center">
+                                    <button class="btn opciones" type="submit">Actualizar</button>
+                                </div>
+
+                          <br><br><br><br><br>
+                    
+                        
+                    </div>
+                    
+                    </form>   
+                </div>
+                </form>
+
+            </section>
+            </div>
+
+        </div>
+    </main>
+    <footer></footer>
+ 
+
+</body>
+
+<script>
+    function cambiarInputs(){
+        var opcion_seleccionada = document.getElementById('estado');
+        //var parrafo = document.getElementById('parrafo_cantidad');
+        var input_cant_list = document.querySelectorAll("#input_cantidad");
+
+        var titulo_motivo = document.getElementById('titulo_motivo');
+        var textarea_motivo = document.getElementById('textarea_motivo');
+
+        input_cant_list.forEach(function (inputCantidad) {
+            if (opcion_seleccionada.value === "CONFIRMADO_PARCIALMENTE") {
+                inputCantidad.style.display = "block";
+                titulo_motivo.style.display = "block";
+                textarea_motivo.style.display = "block";
+            } else {
+                inputCantidad.style.display = "none";
+                titulo_motivo.style.display = "none";
+                textarea_motivo.style.display = "none";
+            }
+        });
+
+        if(opcion_seleccionada.value === "RECHAZADO" || opcion_seleccionada.value === "CONFIRMADO_PARCIALMENTE"){
+            titulo_motivo.style.display = "block";
+            textarea_motivo.style.display = "block";
+        } else{
+            titulo_motivo.style.display = "none";
+            textarea_motivo.style.display = "none";
+        }
+
+        //parrafo.style.display = (opcion_seleccionada.value === "CONFIRMADO_PARCIALMENTE") ? "block" : "none";
+        //input_cant.style.display = (opcion_seleccionada.value !== "CONFIRMADO_PARCIALMENTE") ? "none" : "block";
+
+    }
+</script>
+
+</html>

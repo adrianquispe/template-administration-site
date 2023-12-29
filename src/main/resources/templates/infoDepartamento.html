@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="../static/css/reset.css">
+    <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,500;0,700;0,800;1,400&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+    <!-- css+js del scrol -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/dash_style.css}" href="../static/css/dash_style.css">
+    <link rel="stylesheet" th:href="@{/css/estilos_compartidos.css}" href="../static/css/estilos_compartidos.css">
+    <link rel="stylesheet" th:href="@{/css/infoDepartamento.css}" href="../static/css/infoDepartamento.css">
+    <title>Informacion de departamento</title>
+</head>
+
+<body>
+    <header th:replace="dashboard :: cabecera">  </header>
+        
+    <main id="contenido_principal" class="container-fluid">
+        <div class="row" style="height: 100%">
+            <aside th:replace="dashboard :: menu_lateral"></aside>
+            <section id="main_content" class="col-10">
+                <!-- breadcrum de la pagina 
+                <div class="cont__breadcrum">
+                    <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
+                      <ol class="breadcrumb ">
+                        <li class="breadcrumb-item"><a th:href="@{/departamentos}">Departamentos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Información de Departamento</li>
+                      </ol>
+                    </nav>
+                </div>
+                -->
+                <div id="breadcrum">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/departamentos}">Departamentos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Información de Departamento</li>
+                      </ol>
+                    </nav>
+                </div>
+
+                <div class="contenedor_general_contenido_pagina" ss-container>
+
+                    <h1>Información de departamento</h1>
+                    <br><br>
+                    <div class="informacion row row-cols-3">
+                        <div class="col col-1"></div>
+                        <div class="col col-2">
+                            <img th:src= "@{'../'+${departamento.icono}}" alt="icono" class="logo">
+                        </div>
+                        <div class="col">
+                            <div class="row departamento">
+                                <P th:text="${departamento.nombre}" class="sigla_empresa"></P>
+                            </div>
+                            <div class="descripcion row ">
+                                <p th:text="${departamento.objetivo}">  </p>
+                            </div>
+                            </br> </br> </br>
+                            <div class="descripcion row ">
+                                <div>
+                                    <span th:if="${departamento.activo}"> <p>Activo</p> </span>
+                                    <span th:unless="${departamento.activo}"> <p>Inactivo</p> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                    <div class="datos">
+
+                    <div class="subtitulo">Autoridades</div>
+                    
+                    <div th:each="autoridadDepartamento : ${autoridades}" class="informacion row row-cols-2">
+                        <div class="col " style="padding-left: 70px">
+                            <p th:text="${autoridadDepartamento.rol.descripcion}" class="roles"></p> 
+                            <span th:text="${autoridadDepartamento.nombreAutoridad}" class="presidente"></span>  <br>
+                        </div>
+                    </div>
+
+                      <div class="d-md-flex justify-content-md-center">
+                          <a th:href="'/departamento/' + ${departamento.id} + '/editar'">
+                              <button class="btn opciones" type="button">Editar</button>
+                          </a>
+                          <span th:if="${departamento.activo}">
+                              <form method="post" th:action= "@{'/departamento/estado/' + ${departamento.id}}">
+                                  <button type="submit" class="btn btn opciones" name="estado" value="false"><span class="lnr lnr-trash"> Dar de Baja</span></button>
+                              </form>
+                          </span>
+                          <span th:unless="${departamento.activo}">
+                            <form method="post" th:action= "@{'/departamento/estado/' + ${departamento.id}}">
+                              <button type="submit" class="btn btn opciones" name="estado" value="true"><span class="lnr lnr-arrow-up-circle"> Dar de Alta</span></button>
+                            </form>
+                          </span>
+                        </div>
+                        
+                    </div>
+
+                
+            </div>
+
+            </section>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+
+</html>

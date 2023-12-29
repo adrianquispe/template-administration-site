@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+
+<main>
+  <body>
+  <div th:fragment="contenido" id="contenedor_total">
+    <div id="breadcrum">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+          <li class="breadcrumb-item"><a href="departamentos">Departamentos</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Nuevo tipo de Departamento</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="contenedor_general_contenido_pagina" ss-container>
+      <div class="titulo">Nuevo Tipo de Departamento</div>
+      <form method="post" th:object="${tipoDepartamento}" th:action= "@{/tipoDepartamento}">
+        <div class="row">
+          <div class="cont__grupo">
+            <div>
+              <label for="nombre" class="form__label">nombre *</label>
+              <input type="text" id="nombre" class="form__input"
+                     th:field="${tipoDepartamento.nombre}" />
+              <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                    th:style="'color: red'"></span>
+            </div>
+          </div>
+        </div>
+        <div class="cont__grupo">
+          <button type="submit" class="btn_principal">Nuevo Tipo de Departamento</button>
+        </div>
+      </form>
+    </div>
+    
+  </div>
+  </body>
+</main>
+</html>

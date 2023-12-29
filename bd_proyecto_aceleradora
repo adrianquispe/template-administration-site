@@ -1,0 +1,83 @@
+-- create database proyecto_aceleradora;
+
+-- use proyecto_aceleradora;
+
+-- 1
+INSERT INTO usuarios (nombre_del_suario, contraseña, rol, nombre, apellido, dni) VALUES
+('usuario1','Contras3ña1#','ADMINISTRADOR','Juan','Pérez','123456789'),
+('usuario2','Contr@seña2','ASOCIADO','María','Gómez','987654321'),
+('usuario3','C0ntraseña3*','ASOCIADO','Carlos','López','456789012'),
+('usuario4','Admi*123','ADMINISTRADOR','Laura','Rodríguez','789012345'),
+('usuario5','PedroPass#9','ASOCIADO','Pedro','Martínez','567890123'),
+('usuario6','C0ntraseña6*','ASOCIADO','Jose','Aguilar','456789089'),
+('usuario7','Admin*123','ADMINISTRADOR','Juana','Romero','789012378'),
+('usuario8','PedroPass#8','ASOCIADO','Federico','Moreno','567890154');
+-- 2
+INSERT INTO socios (activo, denominacion,  descripcion, fecha_asociacion, logo, mail,  pagina, telefono,  tipo, ubicacion_id, usuario_id) VALUES
+(1,'Cámara 1','Descripción de Cámara 1','2023-01-01','logo_camara1.png','info@camara1.com','www.camara1.com','123-456-7890','CAMARA',NULL,1),
+(1,'Empresa A','Descripción de Empresa A','2023-02-15','logo_empresaA.png','info@empresaA.com','www.empresaA.com','987-654-3210','EMPRESA',NULL,2),
+(1,'Cámara 2','Descripción de Cámara 2','2023-03-20','logo_camara2.png','info@camara2.com','www.camara2.com','555-123-4567','CAMARA',NULL,3),
+(1,'Empresa B','Descripción de Empresa B','2023-04-10','logo_empresaB.png','info@empresaB.com','www.empresaB.com','111-222-3333','EMPRESA',NULL,4),
+(1,'Cámara 3','Descripción de Cámara 3','2023-05-25','logo_camara3.png','info@camara3.com','www.camara3.com','999-888-7777','CAMARA',NULL,5),
+(1,'Cámara 4','Descripción de Cámara 4','2023-06-20','logo_camara4.png','info@camara4.com','www.camara4.com','555-123-4567','CAMARA',NULL,6),
+(1,'Empresa C','Descripción de Empresa C','2023-07-10','logo_empresaC.png','info@empresaC.com','www.empresC.com','111-222-3333','EMPRESA',NULL,7),
+(1,'Cámara 5','Descripción de Cámara 5','2023-08-25','logo_camara5.png','info@camara5.com','www.camara5.com','999-888-7777','CAMARA',NULL,8);
+
+-- 3
+INSERT INTO ubicacion (altura, barrio, calle, codigo_postal, departamento, municipio, piso, provincia) VALUES
+('123','Centro','Avenida Principal','1234','Torre A','Ciudad Capital','4','Provincia A'),
+('456','Residencial','Calle Secundaria','5678','Apartamento B','Ciudad Principal','8','Provincia B'),
+('789','Comercial','Avenida Comercial','91011','Local 5','Pueblo Pequeño',NULL,'Provincia C'),
+('101','Barrio Norte','Calle Tranquila','1213','Departamento 3B','Ciudad Grande','3','Provincia A'),
+('314','Suburbio','Calle Verde','1415','Casa 7','Pueblo Tranquilo',NULL,'Provincia D'),
+('129','Comercial','Avenida Comercial','91011','Local 5','Pueblo Pequeño',NULL,'Provincia C'),
+('101','Barrio Norte','Calle Tranquila','1213','Departamento 3B','Ciudad Grande','3','Provincia A'),
+('314','Suburbio','Calle Verde','1415','Casa 7','Pueblo Tranquilo',NULL,'Provincia D');
+-- 4
+INSERT INTO estado_socio (activo, fecha, socio_id) VALUES
+ (1,'2023-01-01',1),(1,'2023-02-15',2),(1,'2023-03-20',3),
+(1,'2023-04-10',4),(1,'2023-05-25',5), (1,'2023-06-01',6),(1,'2023-07-15',7),(1,'2023-08-20',8);
+-- 5
+INSERT INTO membresia(nombre) VALUES
+('Membresia 1'),('Membresia 2'),('Membresia 3'),('Membresia 4'),('Membresia 5'),('Membresia 6'),('Membresia 7'),('Membresia 8');
+-- 6
+INSERT INTO membresia_de_socio (cuota_social, dias_para_vencer, duracion, fecha_de_asociacion,plazo_antes_de_vencer,membresia_id,socio_id) VALUES
+(50000,30,30,'2023-01-01',30,1,1),(60000,30,60,'2023-02-15',30,2,2),
+(45000,30,30,'2023-03-20',30,3,3),(55000,30,60,'2023-04-10',30,4,4),(50000,30,30,'2023-05-25',30,5,5),
+(50000,30,30,'2023-06-01',30,6,6),(55000,30,30,'2023-07-15',30,7,7),(50000,30,30,'2023-08-20',30,8,8);
+
+-- 7
+INSERT INTO area (nombre) VALUES
+('Area 1'),('Area 2'),('Area 3'),('Area 4'),('Area 5'),('Area 6'),('Area 7'),('Area 8');
+-- 8
+INSERT INTO tipo_departamento(activo, nombre)  VALUES
+(1,'tipodepartamento1'),(1,'tipodepartamento2'),
+(1,'tipodepartamento3'),(1,'tipodepartamento4'),(1,'tipodepartamento5'),
+(1,'tipodepartamento6'),(1,'tipodepartamento7'),(1,'tipodepartamento8');
+-- 9
+INSERT INTO departamento (activo, icono, nombre, objetivo, superdepartamento, departamento_padre, tipo_id) VALUES
+ (1, 'icono1.png', 'Economía, Desarrollo Regional y PyME', 'Su objetivo es el diseño de propuestas y seguimiento en materia de políticas de desarrollo productivo, acceso al financiamiento y mejora de la competitividad de los sectores', NULL, NULL, 1),
+ (1, 'icono2.png', 'Normativa Alimentaria', 'Su objetivo principal consiste en el seguimiento y análisis de las regulaciones alimentarias vigentes y proyectos de las mismas, sean estos de carácter regional (MERCOSUR), nacional, provincial o municipal', NULL , NULL, 2),
+ (1, 'icono3.png', 'Asuntos Institucionales y Comunicación', 'Su objetivo es desarrollar la estrategia institucional y de comunicación para posicionar la agenda de propuestas de política pública para la mejora de los sectores de la IAB ante el Gobierno Nacional', NULL, NULL, 3),
+ (1, 'icono4.png', 'Política Fiscal y Tributaria', 'Su objetivo principal es analizar, evaluar y proponer las mejoras del sistema tributario que alcanza a la IAB, con intención de disminuir la carga tributaria y simplificar los regímenes correspondientes.', NULL, NULL, 4),
+ (1, 'icono5.png', 'Asuntos Laborales', 'Su objetivo es monitorear y analizar los temas legales y de política laboral, como así también las cuestiones relativas a la seguridad social de las empresas representadas por sus Cámaras.', NULL, NULL, 5),
+ (1, 'icono6.png', 'Comercio Exterior', 'Su objetivo es tener activa participación, seguimiento y monitoreo de las negociaciones económicas internacionales, en las que se encuentra involucrado el país', NULL, NULL, 6),
+ (1, 'icono7.png', 'Sustentabilidad y Política Ambiental', 'Su principal objetivo es el de atender todos aquellos temas que hacen al estudio de los planes, alternativas o proyectos de ley que tengan que ver con la gestión ambiental.', NULL, NULL, 7);
+-- 10
+INSERT INTO rol_autoridad (activo, descripción) VALUES
+(1,'Presidente'),(1,'Vicepresidente'), (1,'Vicepresidente PYME'),(1,'Vicepresidente de Financiamiento'),
+(1,'Jefe de Departamento'),(1,'Secretaria(o)'),(1,'Asistente de Departamento'), (1,'Asesor Externo');
+-- 11
+INSERT INTO autoridad_departamento (activo, rol_id, usuario_id) VALUES
+ (1,1,1),(1,2,2),(1,3,3),(1,4,4),(1,5,5),(1,6,6),(1,7,7),(1,8,8);
+
+-- 12
+INSERT INTO departamento_areas (departamento_id, areas_id) VALUES
+(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7);
+-- 13
+INSERT INTO socios_areas  (socio_id, areas_id) VALUES
+(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8);
+
+-- 14
+INSERT INTO departamento_autoridades (departamento_id, autoridades_id) VALUES
+(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7);

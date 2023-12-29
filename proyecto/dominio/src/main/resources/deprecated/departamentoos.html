@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/reset.css}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
+    <link th:href="@{/css/dash_style.css}" rel="stylesheet">
+    <link th:href="@{/css/lista_style.css}" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <title>COPAL</title>
+</head>
+<body>
+<header>
+    <div id="top_bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div id="top_content">
+                        <img th:src="@{/img/logo_copal.svg}" alt="logo copal" class="top_icon_size">
+                        <div>
+                            <span class="user_name">Nombre usuario</span>
+                            <img th:src="@{/img/icon_usuario.png}" alt="icono usuario" class="top_icon_size">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main id="contenido_principal" class="container-fluid">
+    <div class="row" style="height: 100%;">
+        <aside id="side_menu" class="px-3 py-5 col-2">
+            <div class="contenido_menu_lateral">
+                <a href="#" class="btn side_option" type="button">Inicio</a>
+                <a th:href="@{/departamentos/nuevo}" class="btn side_option" type="button">Nuevo departamento</a>
+            </div>
+
+        </aside>
+        <section id="main_content" class="col-10">
+            <div id="contenedor_total">
+                <div id="breadcrum">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb ">
+                            <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Lista de Departamentos</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div id="titulo">
+                    Lista de Departamentos
+                </div>
+                <br>
+                <div id="barra_accion">
+          <span class="input-group">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Area</button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">TODO</a></li>
+              <li><a class="dropdown-item" href="#">TODO</a></li>
+              <li><a class="dropdown-item" href="#">TODO</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">TODO</a></li>
+            </ul>
+            <input id="imput_filter" type="text" class="form-control" placeholder="Buscar..." value="">
+          </span>
+                    <span>
+            <a th:href="@{departamentos/nuevo}" target="_blank" type="button" class="btn btn-primary boton_nuevo_socio">Nuevo Departamento</a>
+          </span>
+                </div>
+                <div class="contenedor_tabla">
+                    <table class="table table-bordered border-white tabla_socios">
+                        <thead>
+                        <tr>
+                            <th class="col-2">Icono</th>
+                            <th class="col-4">Nombre</th>
+                            <th class="col-2">Tipo</th>
+                            <th class="col-1">objetivo</th>
+                            <th class="col-1">Activo</th>
+                            <th class="col-1">Info</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla_contenido">
+                        <tr th:if="${departamentos.empty}">
+                            <td colspan="5	"> No data available </td>
+                        </tr>
+                        <tr th:each="departamento : ${departamentos}">
+                            <td><img th:src="@{${departamento.icono}}" class="logo_size" alt="logo_socio">  </span></td>
+                            <td><span th:text="${departamento.nombre}"> Mostrar Denominación </span></td>
+                            <td><span th:text="${departamento.tipo.nombre}"> Mostrar Tipo </span></td>
+                            <td><span th:text="${departamento.objetivo}"> Mostrar objetivo</span></td>
+                            <td>
+                                <span th:if="${departamento.activo}"> <p>Activo</p> </span>
+                                <span th:unless="${departamento.activo}"> <p>Inactivo</p> </span>
+                            </td>
+                            <td><a th:href="'/departamento/' + ${departamento.id}" type="button" class="btn btn-outline-info">Detalles</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <script>
+                      $(document).ready(function(){
+                        $("#imput_filter").on("keyup", function() {
+                          var value = $(this).val().toLowerCase();
+                          $("#tabla_contenido tr").filter(function() {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                          });
+                        });
+                      });
+                    </script>
+
+            </div>
+        </section>
+    </div>
+</main>
+<footer></footer>
+</body>
+</html>
